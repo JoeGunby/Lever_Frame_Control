@@ -23,8 +23,6 @@ void setup() {
 void loop() {
   FrameState();
   SignalControl();
-  Serial.println(Lever2);
-  delay(250);
 }
 
 

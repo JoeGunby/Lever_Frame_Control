@@ -5,9 +5,9 @@ const int RedAspectPin = 6;
 const int YellowAspectPin = 7;
 const int GreenAspectPin = 8;
 const int FeathersPin = 9;
-bool Lever2 = LOW;
-bool Lever3 = LOW;
-bool Lever4 = LOW;
+int Lever2 = 0;
+int Lever3 = 0;
+int Lever4 = 0;
 
 
 void setup() {
@@ -24,8 +24,8 @@ void setup() {
 void loop() {
   SignalControl();
   FrameState();
-  Serial.println(Lever2); /* A serial output for testing what isn't working, when pulled, output for 2 changes from a 0 to 1 as expected so error is on output side somewhere, only a green aspect ever shows */
-  delay(200);
+  Serial.println(Lever4);
+  delay(100);
 }
 
 
@@ -40,34 +40,38 @@ void FrameState() {
 void SignalControl() {
 
   //If all levers are in the frame, a red aspect should show.
-  if (Lever2 == 1 && Lever3 == HIGH && Lever4 == HIGH) {
+  if (Lever2 == 0 && Lever3 == 0 && Lever4 == 0) {
     digitalWrite(GreenAspectPin, LOW);
-    digitalWrite(RedAspectPin, HIGH);
     digitalWrite(YellowAspectPin, LOW);
     digitalWrite(FeathersPin, LOW);
+    delay(250);
+    digitalWrite(RedAspectPin, HIGH);
   }
 
   //If lever 2 is pulled, a yellow aspect should show.
-  else if (Lever2 == LOW && Lever3 == HIGH && Lever4 == HIGH) {
+  else if (Lever2 > 0 && Lever3 == 0 && Lever4 == 0) {
     digitalWrite(GreenAspectPin, LOW);
     digitalWrite(RedAspectPin, LOW);
-    digitalWrite(YellowAspectPin, HIGH);
     digitalWrite(FeathersPin, LOW);
+    delay(250);
+    digitalWrite(YellowAspectPin, HIGH);
   }
 
   //If lever 3 is pulled, a yellow aspect should show.
-  else if (Lever2 == HIGH && Lever3 == LOW && Lever4 == HIGH) {
+  else if (Lever2 == 0 && Lever3 > 0 && Lever4 == 0) {
     digitalWrite(GreenAspectPin, LOW);
     digitalWrite(RedAspectPin, LOW);
-    digitalWrite(YellowAspectPin, HIGH);
     digitalWrite(FeathersPin, LOW);
+    delay(250);
+    digitalWrite(YellowAspectPin, HIGH);
   }
   //If lever 4 is pulled, a yellow aspect and junction feathers should show.
-  else if (Lever2 == HIGH && Lever3 == HIGH && Lever4 == LOW) {
+  else if (Lever2 == 0 && Lever3 == 0 && Lever4 > 0) {
     digitalWrite(GreenAspectPin, LOW);
     digitalWrite(RedAspectPin, LOW);
-    digitalWrite(YellowAspectPin, HIGH);
+    delay(250);
     digitalWrite(FeathersPin, HIGH);
+    digitalWrite(YellowAspectPin, HIGH);
   }
 
   //If a signal loss occurs or the system breaks, a green aspect shows as one should never appear in service.
