@@ -25,7 +25,7 @@ void loop() {
   SignalControl();
   FrameState();
   Serial.println(Lever2); /* A serial output for testing what isn't working, when pulled, output for 2 changes from a 0 to 1 as expected so error is on output side somewhere, only a green aspect ever shows */
-  delay(100);
+  delay(200);
 }
 
 
@@ -40,7 +40,7 @@ void FrameState() {
 void SignalControl() {
 
   //If all levers are in the frame, a red aspect should show.
-  if (Lever2 == HIGH && Lever3 == HIGH && Lever4 == HIGH) {
+  if (Lever2 == 1 && Lever3 == HIGH && Lever4 == HIGH) {
     digitalWrite(GreenAspectPin, LOW);
     digitalWrite(RedAspectPin, HIGH);
     digitalWrite(YellowAspectPin, LOW);
