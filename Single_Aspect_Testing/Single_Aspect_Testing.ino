@@ -39,11 +39,13 @@ void FrameState() {
 void SignalControl() {
 
   if (Lever2 > 0) {
+    digitalWrite(RedAspectPin, LOW);
     delay(250);
     digitalWrite(YellowAspectPin, HIGH);
   }
   else {
-    delay(250);
     digitalWrite(YellowAspectPin, LOW);
+    delay(250);
+    digitalWrite(RedAspectPin, HIGH);
   }
 }
