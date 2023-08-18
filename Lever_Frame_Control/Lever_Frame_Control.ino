@@ -24,8 +24,6 @@ void setup() {
 void loop() {
   SignalControl();
   FrameState();
-  Serial.println(Lever4);
-  delay(100);
 }
 
 
